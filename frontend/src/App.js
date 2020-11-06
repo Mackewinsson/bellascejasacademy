@@ -1,7 +1,8 @@
 import React from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import HomeScreen from "./screens/HomeScreen";
 
 const App = () => {
   return (
@@ -9,11 +10,7 @@ const App = () => {
       <Header />
       <main>
         <Container>
-          <Row>
-            <Col>
-              <h1 className="mt-5">Bienvenido a Bellas Cejas Academy</h1>
-            </Col>
-          </Row>
+          <HomeScreen />
         </Container>
       </main>
       <Footer />
