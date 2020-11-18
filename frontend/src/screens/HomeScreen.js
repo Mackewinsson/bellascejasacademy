@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Product";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { listProducts } from "../actions/productActions";
 
 const Homescreen = () => {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const productList = useSelector((state) => state.productList);
+  const { products, loading, error } = productList;
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get("/api/products");
-      setProducts(data);
-    };
-    fetchProducts();
-  }, []);
+    dispatch(listProducts());
+  }, [dispatch]);
 
   // Map over data
   const productRender = products.map((product) => {
@@ -27,7 +26,13 @@ const Homescreen = () => {
   return (
     <>
       <h1>Latest Products</h1>
-      <Row>{productRender}</Row>
+      {loading ? (
+        <h2>Loading</h2>
+      ) : error ? (
+        <h3>{error} </h3>
+      ) : (
+        <Row>{productRender}</Row>
+      )}
     </>
   );
 };
